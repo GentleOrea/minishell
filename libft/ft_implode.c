@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/08 14:25:29 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/08 14:26:33 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/09 15:08:01 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char		*concat(char glue, char const *s1, char const *s2, char *fresh)
 	i = -1;
 	while (s1[++i])
 		fresh[i] = s1[i];
-	fresh[++i] = glue;
+	fresh[i++] = glue;
 	while (s2[++i2])
 		fresh[i++] = s2[i2];
 	return (fresh);

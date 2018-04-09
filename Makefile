@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/11 11:17:30 by ygarrot           #+#    #+#              #
-#    Updated: 2018/04/08 17:29:08 by ygarrot          ###   ########.fr        #
+#    Updated: 2018/04/09 14:50:01 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,12 +16,14 @@ FLAGS = -Wall -Werror -Wextra  -g3 -fsanitize=address
 
 SRC_FOLDER = ./
 
-SRC_FP = test.c \
+SRC_FP = main.c \
 		ft_cd.c\
-		ft_echo.c\
+		misc.c \
 		ft_env.c\
-		ft_exit.c\
-		init.c
+		init.c \
+		error.c \
+		list_tools.c \
+		exec.c
 #Colors
 _RED=\x1b[31m
 _GREEN=\x1b[32m

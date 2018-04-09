@@ -6,38 +6,41 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/08 11:10:57 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/08 19:00:36 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/09 18:06:46 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	tabchr(g_shell *sh)
+void	tabchr(g_shell *sh, char *arg)
 {
-	int		i;
-	int		i2;
+	t_env	*pwd;
+	t_env	*oldpwd;
 	char	path[256];
 
-	i = 0;
-	i2 = 0;
-	while (sh->env[i] && !ft_strnstr(sh->env[i], "PWD", 3))
-		i++;
-	while (sh->env[i2] && !ft_strnstr(sh->env[i2], "OLDPWD", 5))
-		i2++;
-//	!sh->oldpw || sh->is_old ? getcwd(path, 256) : 0;
-//	!sh->oldpw ? sh->oldpw = path : 0;
-//	chdir (sh->is_old ? sh->oldpw : path);
+	pwd = search_var(sh->t_env, "PWD");
+	oldpwd = search_var(sh->t_env, "OLDPWD"); 
+
+	if (chdir(sh->is_old ? sh->oldpwd : arg))
+		ft_printf("{red}%d->%s{reset}\n",sh->is_old, sh->oldpwd);
 	getcwd(path, 256);
-	//sh->env[i] = ft_strjoin("PWD=", path);
-	sh->env[1] = ft_strjoin("OLDPWD=", sh->oldpw);
-//	sh->oldpw = path;
+	sh->oldpwd = &pwd->value[4];
+	sh->pwd = ft_strdup(path);
+	pwd->value = ft_strjoin("PWD=", path);
+	oldpwd->value = ft_strjoin("OLDPWD=", sh->oldpwd);
 }
 
-void	ft_cd(g_shell *sh, const char *path)
+void	ft_cd(g_shell *sh, char *argv[])
 {
-	if (!ft_strcmp(path, "-"))
-		sh->is_old = 1;
+	t_env	*temp;
 
-	tabchr(sh);
-	ft_env(sh);
+	sh->is_old = !ft_strcmp(argv[0], "-");
+	if(!ft_strcmp(argv[0], "~"))
+	{
+		temp = search_var(sh->t_env, "HOME");
+		if (!temp)
+			ft_printf("pas de home\n");
+		argv[0] = &temp->value[5];
+	}
+	tabchr(sh, argv[0]);
 }

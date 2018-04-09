@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/08 11:13:21 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/08 18:51:54 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/09 18:02:18 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,44 +18,63 @@ void	fill_env(g_shell *sh)
 	int		i;
 
 	i = 0;
-	if (sh->env_size == sh->new_env_size)
-		return ;
-	ft_memdel((void**)&sh->p_env);
+	env = sh->t_env;
+//	if (sh->env_size == sh->new_env_size)
+//		return ;
+	ft_memdel((void**)&sh->env);
 	sh->env_size = sh->new_env_size;
-	sh->p_env = ft_memalloc(sh->env_size * sizeof(char));
+	sh->env = (char**)ft_memalloc((sh->env_size + 1) * sizeof(char*));
 	while (env)
 	{
-		sh->p_env[i] = env->join;
+		sh->env[i++] = env->value;
 		env = env->next;
 	}
 }
 
-void	init(g_shell *sh)
+void	init_built(g_shell *sh)
+{
+
+	sh->f_built[0] = &ft_echo;
+	sh->f_built[1] = &ft_exit;
+	sh->f_built[2] = &ft_cd;
+	sh->f_built[3] = &ft_env;
+	sh->f_built[4] = &ft_setenv;
+	sh->f_built[5] = &ft_unsetenv;
+}
+
+void	init(g_shell *sh, char **env)
 {
 	t_env	*begin;
 	int		del;
-	int	i;
+	char	**mybuilt;
+	int		i;
 
-	i = 0;
-	sh->env_size = 1;
-	
+	init_built(sh);
+	mybuilt = (char *[6]){"echo", "exit", "cd", "env", "setenv", "unsetenv"};
+	mallcheck(sh->my_built = ft_memalloc(i = ft_sizeof_tab(mybuilt)));
+	ft_memcpy(sh->my_built, mybuilt, i);
 	begin = (t_env *)ft_memalloc(sizeof(t_env));
 	sh->t_env = begin;
-	del = ft_charchr('=', sh->env[0]);
-	begin->join = ft_strdup(sh->env[0]);
-	begin->key = ft_strndup(sh->env[0], del);
-	begin->value = ft_strdup((char*)&sh->env[0][del + 1]);
-	
-	while (sh->env[++i])
+	del = ft_charchr('=', env[0]);
+	begin->value = ft_strdup(env[0]);
+	i = 0;
+	while (env[++i])
 	{
-	
 		begin->next = (t_env *)ft_memalloc(sizeof(t_env));
+		begin->next->prev = begin;
 		begin = begin->next;
-		del = ft_charchr('=', sh->env[i]);
-		begin->join = ft_strdup(sh->env[i]);
-		begin->key = ft_strndup(sh->env[i], del);
-		begin->value = ft_strdup((char*)&sh->env[i][del + 1]);
-		//ft_printf("[%s][%s][%s]\n", begin->key, begin->value, begin->join);
-		sh->env_size++;
+		del = ft_charchr('=', env[i]);
+		begin->value = ft_strdup(env[i]);
 	}
+	sh->new_env_size = i;
+	fill_env(sh);
+
+	t_env	*pwd;
+	t_env	*oldpwd;
+
+	pwd = search_var(sh->t_env, "PWD");
+	oldpwd = search_var(sh->t_env, "OLDPWD"); 
+	sh->oldpwd = &pwd->value[4];
+	sh->pwd = sh->oldpwd;
+
 }
