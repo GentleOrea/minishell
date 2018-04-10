@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_occiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 17:19:08 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/10 12:50:58 by ygarrot          ###   ########.fr       */
+/*   Created: 2018/04/10 12:35:24 by ygarrot           #+#    #+#             */
+/*   Updated: 2018/04/10 17:16:13 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char *))
-{
-	unsigned int i;
+#include "libft.h"
 
-	i = 0;
-	if (s && (*f))
-	{
-		while (s[i])
-		{
-			(*f)(i, &s[i]);
-			i++;
-		}
-	}
+int	ft_occiter(char *str, int op,int (*f)(int, int))
+{
+	int	cp;
+
+	cp = 0;
+	if (!str)
+		return (0);
+	while (*str && ((*f)(*str++, op)))
+		cp++;
+	return (cp);
 }

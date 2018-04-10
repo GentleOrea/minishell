@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_conv_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 17:19:08 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/10 12:50:58 by ygarrot          ###   ########.fr       */
+/*   Created: 2018/04/10 13:13:54 by ygarrot           #+#    #+#             */
+/*   Updated: 2018/04/10 13:15:38 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char *))
-{
-	unsigned int i;
-
-	i = 0;
-	if (s && (*f))
-	{
-		while (s[i])
-		{
-			(*f)(i, &s[i]);
-			i++;
-		}
-	}
+int		ft_conv_base(int value, int base)
+{`
+	while (value > 0)
 }

@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 14:40:06 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/09 18:13:19 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/10 18:51:43 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int		search_exec(g_shell *sh, char *comm, char *argv[])
 	t_env	*path;
 
 	fill_env(sh);
-	if ((index = ft_strisin_tab(comm, sh->my_built, 0)) > 0)
+	if ((index = ft_strisin_tab(comm, sh->my_built, 0)) >= 0)
 	{
 		sh->f_built[index](sh, &argv[1]);
 		return (1);
 	}
-	if (!(path = search_var(sh->t_env, "PATH")))
-		return (1);
+	if (!(path = search_var(sh->t_env, "PATH"))->value)
+		return (printf("command not found\n"));
 	mallcheck(paths = ft_strsplit(&path->value[5], ':'));
 	index = -1;
 	!access(comm, F_OK | X_OK) ? execve(comm, argv, sh->env) : 0;
@@ -35,6 +35,5 @@ int		search_exec(g_shell *sh, char *comm, char *argv[])
 		temp = ft_implode('/', paths[index], comm);
 		!access(temp, F_OK | X_OK) ? execve(temp, argv, sh->env) : 0;
 	}
-	ft_printf("pas trouvé\n");
-	return (0);
+	return (ft_printf("command not found : %s\n", comm));
 }

@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_isbase.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 17:19:08 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/10 12:50:58 by ygarrot          ###   ########.fr       */
+/*   Created: 2018/04/10 16:44:13 by ygarrot           #+#    #+#             */
+/*   Updated: 2018/04/10 17:01:41 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char *))
-{
-	unsigned int i;
+#include "libft.h"
 
-	i = 0;
-	if (s && (*f))
-	{
-		while (s[i])
-		{
-			(*f)(i, &s[i]);
-			i++;
-		}
-	}
+int		ft_isbase(int c, int base)
+{
+	return (c > '0' && (c < base + '0' || (base > 10 && ft_toupper(c) - 'A' + 10  < base)));
 }

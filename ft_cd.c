@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/08 11:10:57 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/09 18:06:46 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/10 19:23:48 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,14 @@ void	tabchr(g_shell *sh, char *arg)
 	pwd = search_var(sh->t_env, "PWD");
 	oldpwd = search_var(sh->t_env, "OLDPWD"); 
 
-	if (chdir(sh->is_old ? sh->oldpwd : arg))
-		ft_printf("{red}%d->%s{reset}\n",sh->is_old, sh->oldpwd);
 	getcwd(path, 256);
-	sh->oldpwd = &pwd->value[4];
+	!sh->is_old || !sh->oldpwd ? sh->oldpwd = ft_strdup(path) : 0;
+
+
+	if (chdir(sh->is_old ? sh->oldpwd : arg))
+		exit(EXIT_FAILURE);
+
+	getcwd(path, 256);
 	sh->pwd = ft_strdup(path);
 	pwd->value = ft_strjoin("PWD=", path);
 	oldpwd->value = ft_strjoin("OLDPWD=", sh->oldpwd);

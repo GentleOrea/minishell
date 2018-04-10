@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 18:22:10 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/09 17:58:18 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/10 16:19:13 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # include "../libft/includes/libft.h"
 # include <stdio.h>
 # include <signal.h>
+
+#define UNESC "abnrftvc0x"
+
+#define ESC "\a\b\f\n\r\t\v"
 
 typedef struct	s_env
 {
