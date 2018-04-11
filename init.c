@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/08 11:13:21 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/09 18:02:18 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/11 14:15:31 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,12 @@ void	init(g_shell *sh, char **env)
 	int		i;
 
 	init_built(sh);
-	mybuilt = (char *[6]){"echo", "exit", "cd", "env", "setenv", "unsetenv"};
-	mallcheck(sh->my_built = ft_memalloc(i = ft_sizeof_tab(mybuilt)));
-	ft_memcpy(sh->my_built, mybuilt, i);
+	mybuilt = (char *[7]){"echo", "exit", "cd", "env", "setenv", "unsetenv"};
+	mallcheck(sh->my_built = (char**)ft_memalloc(i = ft_sizeof_tab(mybuilt)));
+	int t = -1;
+	while (mybuilt[++t])
+		ft_printf("%s\n", mybuilt[t]);
+	ft_memmove(sh->my_built, mybuilt, i);
 	begin = (t_env *)ft_memalloc(sizeof(t_env));
 	sh->t_env = begin;
 	del = ft_charchr('=', env[0]);

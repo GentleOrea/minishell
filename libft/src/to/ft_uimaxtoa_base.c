@@ -1,41 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_imaxtoa_base.c                                  :+:      :+:    :+:   */
+/*   ft_uimaxtoa_base.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/09 10:15:15 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/03/12 13:00:05 by ygarrot          ###   ########.fr       */
+/*   Created: 2018/01/09 10:17:40 by ygarrot           #+#    #+#             */
+/*   Updated: 2018/04/11 13:54:57 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_imaxtoabase(intmax_t nbr, int base)
+char	*ft_uimaxtoabase(uintmax_t value, int base)
 {
-	uintmax_t	value;
 	uintmax_t	result;
-	int			neg;
 	int			i;
 	char		*str;
 
-	neg = (base == 10 && (nbr < 0)) ? 1 : 0;
-	i = neg;
-	value = (nbr > 0) ? nbr : -nbr;
+	i = 0;
 	result = value;
 	while (result /= base)
 		i++;
-	if (!(str = (char*)malloc((i + (value ? 0 : 1) + 1) * sizeof(char))))
+	if (!(str = (char*)ft_memalloc((i + 2) * sizeof(char))))
 		return (NULL);
-	str[i + 1] = '\0';
+	str[0] = value ? '\0' : '0';
 	while (value > 0)
 	{
 		str[i--] = ((value % base) < 10) ?
 			(value % base) + '0' : (value % base) - 10 + 'a';
 		value /= base;
 	}
-	str[0] = neg ? '-' : str[0];
-	str[0] = nbr ? str[0] : '0';
 	return (str);
 }

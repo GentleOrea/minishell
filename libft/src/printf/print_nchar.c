@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 17:57:02 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/03/23 13:51:04 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/11 14:07:18 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,17 @@ void	ft_putnstr(char *str, size_t nb, t_arg *list)
 
 void	ft_putn_schar(char c, int nb)
 {
-	char	str[nb];
+	char	*str;
 	int		temp;
 
 	if (nb < 0)
 		return ;
+	if (!(str = (char*)ft_memalloc(nb * sizeof(char))))
+		return ;
 	temp = nb;
-	while (temp)
+	ft_putendl("salut");
+	while (temp >= 0)
 		str[--temp] = c;
 	write(1, str, (size_t)nb);
+	ft_memdel((void**)&str);
 }

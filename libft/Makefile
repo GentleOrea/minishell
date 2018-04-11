@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 12:06:15 by ygarrot           #+#    #+#              #
-#    Updated: 2018/04/11 12:30:39 by ygarrot          ###   ########.fr        #
+#    Updated: 2018/04/11 13:25:07 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 NAME = libft.a
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 SRCDIR = src
 OBJDIR = obj
@@ -23,9 +23,9 @@ INCDIR = includes
 
 SRC = \
 	  misc/ft_occiter.c \
-	  misc/ft_occur_in.c.c \
+	  misc/ft_occur_in.c \
 	  misc/ft_rev_charchr.c\
-	  misc/ft_row_div.c \
+	  misc/ft_row_div.c 
 
 SRC += \
 	   to/ft_atoi.c \
@@ -33,8 +33,6 @@ SRC += \
 	   to/ft_imaxtoa_base.c \
 	   to/ft_itoa.c \
 	   to/ft_itoa_base.c \
-	   to/ft_tolower.c \
-	   to/ft_toupper.c \
 	   to/ft_uimaxtoa_base.c
 
 SRC += \
@@ -49,6 +47,8 @@ SRC += \
 	   tern/ft_ismax.c \
 	   tern/ft_ismin.c \
 	   tern/ft_isprint.c \
+	   tern/ft_strisin.c \
+	   tern/ft_strisin_tab.c
 
 SRC += \
 	   print/ft_putchar.c \
@@ -57,7 +57,6 @@ SRC += \
 	   print/ft_putendl_fd.c \
 	   print/ft_putnbr.c \
 	   print/ft_putnbr_fd.c \
-	   print/ft_putstr.c \
 	   print/ft_putnbr_recc.c
 
 SRC += \
@@ -70,6 +69,7 @@ SRC += \
 	   mem/ft_memmove.c \
 	   mem/ft_bzero.c \
 	   mem/ft_memset.c \
+	   mem/ft_realloc.c
 
 
 SRC += \
@@ -101,9 +101,14 @@ SRC += \
 	   str/ft_strstr.c \
 	   str/ft_strsub.c \
 	   str/ft_strtrim.c \
+	   str/ft_implode.c \
+	   str/ft_charchr.c \
+	   str/ft_capitalize.c \
+	   str/ft_putstr.c \
+	   str/ft_strndup.c
 
 SRC += \
-	   get_next_line/get_next_line.c \
+	   get_next_line/get_next_line.c 
 
 SRC += \
 	   tab/ft_free_dblechar_tab.c \
@@ -114,7 +119,7 @@ SRC += \
 	   tab/ft_print_dbl_inttab.c \
 	   tab/ft_print_inttab.c \
 	   tab/ft_sizeof_tab.c \
-	   tab/ft_tablen.c \
+	   tab/ft_tablen.c 
 
 SRC += \
 	   printf/chooseconv.c \
@@ -125,7 +130,6 @@ SRC += \
 	   printf/parser_printf.c \
 	   printf/print_nchar.c \
 	   printf/printp.c
-
 
 #Colors
 
