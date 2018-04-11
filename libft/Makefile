@@ -5,60 +5,165 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/11/13 14:29:56 by ygarrot           #+#    #+#              #
-#    Updated: 2018/04/10 16:50:06 by ygarrot          ###   ########.fr        #
+#    Created: 2018/04/11 12:06:15 by ygarrot           #+#    #+#              #
+#    Updated: 2018/04/11 12:30:39 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+.PHONY: all $(NAME) clean fclean re
+
 NAME = libft.a
 
-FLAGS = -Wall -Werror -Wextra
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
 
-INCLUDES = includes/
+SRCDIR = src
+OBJDIR = obj
+INCDIR = includes
 
-SRC = 	ft_lstadd.c ft_memdel.c ft_strcat.c \
-		ft_strlcat.c ft_strsplit.c ft_lstdel.c ft_memmove.c ft_strchr.c \
-		ft_strlen.c ft_strstr.c ft_lstdelone.c ft_memset.c ft_strclr.c \
-		ft_strmap.c ft_strsub.c ft_atoi.c ft_lstiter.c ft_putchar.c \
-		ft_strcmp.c ft_strmapi.c ft_strtrim.c ft_bzero.c ft_lstmap.c \
-		ft_putchar_fd.c ft_strcpy.c ft_strncat.c ft_tolower.c ft_isalnum.c \
-		ft_lstnew.c ft_putendl.c ft_strdel.c ft_strncmp.c ft_toupper.c \
-		ft_isalpha.c ft_memalloc.c ft_putendl_fd.c ft_strdup.c ft_strncpy.c \
-		ft_isascii.c ft_memccpy.c ft_putnbr.c ft_strequ.c ft_strnequ.c \
-		ft_isdigit.c ft_memchr.c ft_putnbr_fd.c ft_striter.c ft_strnew.c \
-		ft_isprint.c ft_memcmp.c ft_putstr.c ft_striteri.c ft_strnstr.c \
-		ft_itoa.c ft_memcpy.c ft_putstr_fd.c ft_strjoin.c ft_strrchr.c \
-		ft_list_last.c ft_list_at.c ft_list_push_params.c ft_add_to_end.c \
-		ft_list_merge.c ft_int_isin.c ft_free_dblechar_tab.c ft_isin.c\
-		ft_free_dblechar_tab.c ft_free_dblint_tab.c ft_init_char_tab.c\
-		ft_init_int_tab.c ft_print_chartab.c ft_print_inttab.c ft_strndup.c\
-		ft_int_isin.c ft_strisin_tab.c ft_capitalize.c ft_ismin.c ft_ismax.c\
-		ft_strisin.c ft_abs.c ft_itoa_base.c ft_imaxtoa_base.c \
-		ft_uimaxtoa_base.c get_next_line.c ft_realloc.c ft_tablen.c\
-		ft_str_isdigit.c ft_initdbl_int_tab.c ft_print_dbl_inttab.c\
-		ft_putnbr_recc.c ft_search_char.c chooseconv.c convuimax.c convs.c\
-		ft_printf.c parser_printf.c parsecolor.c printp.c print_nchar.c\
-		ft_occur_in.c ft_row_div.c ft_rev_charchr.c ft_charchr.c ft_strnsplit.c\
-		ft_sizeof_tab.c ft_strswap.c ft_implode.c ft_occiter.c ft_atoi_base.c\
-		ft_isbase.c
+SRC = \
+	  misc/ft_occiter.c \
+	  misc/ft_occur_in.c.c \
+	  misc/ft_rev_charchr.c\
+	  misc/ft_row_div.c \
 
-OBJ = $(SRC:.c=.o)
+SRC += \
+	   to/ft_atoi.c \
+	   to/ft_atoi_base.c \
+	   to/ft_imaxtoa_base.c \
+	   to/ft_itoa.c \
+	   to/ft_itoa_base.c \
+	   to/ft_tolower.c \
+	   to/ft_toupper.c \
+	   to/ft_uimaxtoa_base.c
+
+SRC += \
+	   tern/ft_abs.c \
+	   tern/ft_int_isin.c \
+	   tern/ft_isalnum.c \
+	   tern/ft_isalpha.c \
+	   tern/ft_isascii.c \
+	   tern/ft_isbase.c \
+	   tern/ft_isdigit.c \
+	   tern/ft_isin.c \
+	   tern/ft_ismax.c \
+	   tern/ft_ismin.c \
+	   tern/ft_isprint.c \
+
+SRC += \
+	   print/ft_putchar.c \
+	   print/ft_putchar_fd.c \
+	   print/ft_putendl.c \
+	   print/ft_putendl_fd.c \
+	   print/ft_putnbr.c \
+	   print/ft_putnbr_fd.c \
+	   print/ft_putstr.c \
+	   print/ft_putnbr_recc.c
+
+SRC += \
+	   mem/ft_memalloc.c \
+	   mem/ft_memccpy.c \
+	   mem/ft_memchr.c \
+	   mem/ft_memcmp.c \
+	   mem/ft_memcpy.c \
+	   mem/ft_memdel.c \
+	   mem/ft_memmove.c \
+	   mem/ft_bzero.c \
+	   mem/ft_memset.c \
+
+
+SRC += \
+	   str/ft_tolower.c \
+	   str/ft_toupper.c \
+	   str/ft_strcat.c \
+	   str/ft_strchr.c \
+	   str/ft_strclr.c \
+	   str/ft_strcmp.c \
+	   str/ft_strcpy.c \
+	   str/ft_strdel.c \
+	   str/ft_strdup.c \
+	   str/ft_strequ.c \
+	   str/ft_striter.c \
+	   str/ft_striteri.c \
+	   str/ft_strjoin.c \
+	   str/ft_strlcat.c \
+	   str/ft_strlen.c \
+	   str/ft_strmap.c \
+	   str/ft_strmapi.c \
+	   str/ft_strncat.c \
+	   str/ft_strncmp.c \
+	   str/ft_strncpy.c \
+	   str/ft_strnequ.c \
+	   str/ft_strnew.c \
+	   str/ft_strnstr.c \
+	   str/ft_strrchr.c \
+	   str/ft_strsplit.c \
+	   str/ft_strstr.c \
+	   str/ft_strsub.c \
+	   str/ft_strtrim.c \
+
+SRC += \
+	   get_next_line/get_next_line.c \
+
+SRC += \
+	   tab/ft_free_dblechar_tab.c \
+	   tab/ft_free_dblint_tab.c \
+	   tab/ft_init_char_tab.c \
+	   tab/ft_init_int_tab.c \
+	   tab/ft_print_chartab.c \
+	   tab/ft_print_dbl_inttab.c \
+	   tab/ft_print_inttab.c \
+	   tab/ft_sizeof_tab.c \
+	   tab/ft_tablen.c \
+
+SRC += \
+	   printf/chooseconv.c \
+	   printf/convs.c \
+	   printf/convuimax.c \
+	   printf/ft_printf.c \
+	   printf/parsecolor.c \
+	   printf/parser_printf.c \
+	   printf/print_nchar.c \
+	   printf/printp.c
+
+
+#Colors
+
+_RED=$(shell tput setaf 1)
+_GREEN=$(shell tput setaf 2)
+_YELLOW=$(shell tput setaf 3)
+_BLUE=$(shell tput setaf 4)
+_PURPLE=$(shell tput setaf 5)
+_CYAN=$(shell tput setaf 6)
+_WHITE=$(shell tput setaf 7)
+_END=$(shell tput sgr0)
+
+SRCS = $(addprefix $(SRCDIR)/, $(SRC))
+OBJS = $(addprefix $(OBJDIR)/, $(addsuffix .o, $(basename $(SRC))))
+ALL_OBJ_DIR = $(sort $(dir $(OBJS)))
+INCS = $(addprefix -I, $(addsuffix /, $(INCDIR)))
 
 all: $(NAME)
 
-%.o: %.c $(INCLUDES)/libft.h
-	@gcc -o $@ $(FLAGS) -c $< -I $(INCLUDES)
-
-$(NAME): $(OBJ)
-	@ar rc $(NAME) $^
+$(NAME): $(OBJS)
+	@echo "$(_CYAN)\nCompiling library $(NAME)... $(_GREEN)DONE$(_END)"
+	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
 
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@mkdir -p $(ALL_OBJ_DIR) || true
+	@printf "                                                          \r"
+	@printf "$(_CYAN)Compiling $@$(_END)\r"
+	@$(CC) -o $@ -c $(CFLAGS) $< $(INCS)
+
 clean:
-	@rm -f $(OBJ)
+	@echo "$(_RED)Removed objects (.o) files.$(_END)"
+	@/bin/rm -f $(OBJS)
 
 fclean: clean
-	@rm -f $(NAME)
+	@echo "$(_RED)Removed library ($(NAME)).$(_END)"
+	@/bin/rm -f $(NAME)
 
-re: fclean all
-
-.PHONY: all clean fclean re
+re:
+	make fclean 
+	make all
