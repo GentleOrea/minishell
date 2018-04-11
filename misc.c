@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 12:31:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/10 19:21:03 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/11 10:22:30 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,5 @@ void ft_exit(g_shell *sh, char *argv[])
 {
 	(void)sh;
 	(void)argv;
-	//exit(sign);
+	exit(EXIT_SUCCESS);
 }

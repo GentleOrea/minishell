@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 18:22:10 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/10 16:19:13 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/11 10:59:55 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdio.h>
 # include <signal.h>
 
-#define UNESC "abnrftvc0x"
+#define UNESC "abfnrtvc0x"
 
 #define ESC "\a\b\f\n\r\t\v"
 
@@ -48,6 +48,8 @@ t_env	*search_var(t_env *list, char *to_find);
 int		search_exec(g_shell *sh, char *comm, char *argv[]);
 void	fill_env(g_shell *sh);
 
+void  signin_handler(int sig);
+void  sigquit_handler(int sig);
 void	pop(t_env *env);
 void	tabchr(g_shell *sh, char *str);
 void	ft_echo(g_shell *sh, char *argv[]);
@@ -56,4 +58,6 @@ void	ft_cd(g_shell *sh, char *argv[]);
 void	ft_env(g_shell *sh, char *argv[]);
 void		ft_setenv(g_shell *sh, char *argv[]);
 void		ft_unsetenv(g_shell *sh, char *argv[]);
+void	sig_handler(int sign);
+void	sig_run(void);
 #endif

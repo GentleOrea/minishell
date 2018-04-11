@@ -6,7 +6,7 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/11 11:17:30 by ygarrot           #+#    #+#              #
-#    Updated: 2018/04/09 14:50:01 by ygarrot          ###   ########.fr        #
+#    Updated: 2018/04/11 10:13:47 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRC_FP = main.c \
 		init.c \
 		error.c \
 		list_tools.c \
-		exec.c
+		exec.c\
+		signals.c
 #Colors
 _RED=\x1b[31m
 _GREEN=\x1b[32m

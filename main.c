@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 18:20:32 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/10 19:13:04 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/11 11:32:40 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,17 @@ int main(int ac, char **av, char **env)
 	char	**comma;
 	char	**space;
 
+	char buff[256];
+
 	(void)ac;(void) av;
 	init(&sh, env);
 	while (1)
 	{
-		ft_printf("{boldblue}%s{reset}☯ ", sh.pwd);
+		ft_printf("{boldblue}%s{reset} ☯ " , sh.pwd);
+		sig_run();
 		get_next_line(0, &line);
-		mallcheck(comma = ft_strsplit(line, ';'));
+		if(!(comma = ft_strsplit(line, ';')))
+			exit (1);
 		int i = -1;
 		while(comma[++i])
 		{
