@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 18:20:32 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/12 17:20:56 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/12 17:33:15 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	comm(t_shell *sh, char **comma)
 int		main(int ac, char **av, char **env)
 {
 	t_shell		sh;
+	char		*line;
 
 	(void)ac;
 	(void)av;
@@ -89,10 +90,10 @@ int		main(int ac, char **av, char **env)
 	{
 		ft_printf("{boldblue}%s{reset} ☯ ", sh.pwd);
 		signal(SIGINT, sig_handler);
-		if (get_next_line(0, &sh.line) <= 0)
+		if (get_next_line(0, &line) <= 0)
 			erase_shell(&sh);
-		mallcheck(sh.comma = ft_strsplit(sh.line, ';'));
-		ft_memdel((void**)&sh.line);
+		mallcheck(sh.comma = ft_strsplit(line, ';'));
+		ft_memdel((void**)&line);
 		comm(&sh, sh.comma);
 		ft_free_dblechar_tab(sh.comma);
 	}

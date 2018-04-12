@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/26 13:47:04 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/12 16:06:44 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/12 17:36:11 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct		s_getline
 	char				*buf;
 	int					fd;
 	char				padding[4];
+	struct s_getline	*prev;
 	struct s_getline	*next;
 }					t_gnl;
 

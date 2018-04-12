@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/08 11:13:21 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/12 17:17:38 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/12 17:30:16 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ void	erase_shell(t_shell *sh)
 	t_env	*to_del;
 
 	ft_memdel((void**)&sh->env);
-	ft_free_dblechar_tab(sh->comma);
-	ft_free_dblechar_tab(sh->space);
+	//ft_free_dblechar_tab(sh->comma);
+	//ft_free_dblechar_tab(sh->space);
 	ft_free_dblechar_tab(sh->my_built);
 	while (sh->env_t)
 	{
@@ -101,7 +101,7 @@ void	erase_shell(t_shell *sh)
 	}
 	ft_memdel((void**)&sh->oldpwd);
 	ft_memdel((void**)&sh->pwd);
-	ft_memdel((void**)&sh->line);
+	//ft_memdel((void**)&sh->line);
 	ft_printf("exit\n");
 	exit(1);
 }
