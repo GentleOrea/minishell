@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 18:22:10 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/11 10:59:55 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/12 14:36:36 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,32 @@
 # include "../libft/includes/libft.h"
 # include <stdio.h>
 # include <signal.h>
+# include <termios.h>
+# include <term.h> 
+# include <curses.h>
 
-#define UNESC "abfnrtvc0x"
-
-#define ESC "\a\b\f\n\r\t\v"
+# define UNESC "abfnrtvc0x"
+# define ESC "\a\b\f\n\r\t\v"
 
 typedef struct	s_env
 {
-	char		*value;
-	struct s_env *next;
-	struct s_env *prev;
+	char			*value;
+	char			*oldvalue;
+	char			temp;
+	struct s_env	*next;
+	struct s_env	*prev;
 }				t_env;
 
 typedef struct s_shell
 {
-	void	(*f_built[6])(struct s_shell *sh, char *argv[]);
+	void	(*f_built[5])(struct s_shell *sh, char *argv[]);
 	char	**my_built;
 	char	**env;
-	size_t	env_size;
-	size_t	new_env_size;
 	t_env	*t_env;
-	bool	is_old;
+	char	free;
 	char	*oldpwd;
+	pid_t	father;
 	char	*pwd;
-	int		signal;
 }				g_shell;
 
 void	init(g_shell *sh, char **env);
@@ -48,16 +50,17 @@ t_env	*search_var(t_env *list, char *to_find);
 int		search_exec(g_shell *sh, char *comm, char *argv[]);
 void	fill_env(g_shell *sh);
 
-void  signin_handler(int sig);
-void  sigquit_handler(int sig);
+void	signin_handler(int sig);
+void	sigquit_handler(int sig);
 void	pop(t_env *env);
-void	tabchr(g_shell *sh, char *str);
+void	tabchr(g_shell *sh, char *str, char is_old);
 void	ft_echo(g_shell *sh, char *argv[]);
-void	ft_exit(g_shell *sh, char *argv[]);
 void	ft_cd(g_shell *sh, char *argv[]);
 void	ft_env(g_shell *sh, char *argv[]);
-void		ft_setenv(g_shell *sh, char *argv[]);
-void		ft_unsetenv(g_shell *sh, char *argv[]);
+void	ft_setenv(g_shell *sh, char *argv[]);
+void	ft_unsetenv(g_shell *sh, char *argv[]);
 void	sig_handler(int sign);
-void	sig_run(void);
+void	sig_run(g_shell *sh);
+void	erase_shell(g_shell *sh);
+void	wait_exec(g_shell *sh, char **ta);
 #endif

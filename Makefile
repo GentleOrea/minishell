@@ -6,13 +6,13 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2018/04/11 13:13:39 by ygarrot          ###   ########.fr        #
+#    Updated: 2018/04/12 14:35:54 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-FLAGS = -Wall -Werror -Wextra  -g3 -fsanitize=address
+FLAGS =  -Wall -Werror -Wextra #-g3 -fsanitize=address
 
 SRC_FOLDER = ./
 
@@ -21,10 +21,9 @@ SRC_FP = main.c \
 		 misc.c \
 		 ft_env.c\
 		 init.c \
-		 error.c \
 		 list_tools.c \
-		 exec.c\
 		 signals.c
+
 #Colors
 _RED=\x1b[31m
 _GREEN=\x1b[32m
@@ -50,7 +49,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@printf "                                                        \r"
 	make -C libft -j
-	@gcc $(FLAGS) -o $(NAME) $^ -L libft -l ft
+	@gcc $(FLAGS) -o $(NAME) $^ -L libft -l ft -ltermcap
 	@printf "                                                        \r"
 	@printf "minishell built\n"
 

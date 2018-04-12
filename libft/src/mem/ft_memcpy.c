@@ -6,11 +6,11 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 10:44:02 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/07 17:52:00 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/11 14:44:47 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include "libft.h"
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {

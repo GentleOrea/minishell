@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 12:31:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/11 10:22:30 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/12 14:37:35 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_echo(g_shell *sh, char **argv)
 	int	op;
 	
 	if (!argv)
-		exit(EXIT_FAILURE);
+		return ;
 	i = 0;
 	op = ft_strcmp(argv[0], "-n") ? 0 : 1;
 	op |= ft_strcmp(argv[op ? ++i : 0], "-e") ? 0 : 2;
@@ -61,12 +61,4 @@ void	ft_echo(g_shell *sh, char **argv)
 	}
 	!(op & 1) ? ft_putchar('\n') : 0;
 	(void)sh;
-	exit(EXIT_SUCCESS);
-}
-
-void ft_exit(g_shell *sh, char *argv[])
-{
-	(void)sh;
-	(void)argv;
-	exit(EXIT_SUCCESS);
 }

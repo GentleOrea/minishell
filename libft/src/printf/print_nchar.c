@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 17:57:02 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/11 14:07:18 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/11 15:55:24 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,10 @@ void	ft_putn_schar(char c, int nb)
 
 	if (nb < 0)
 		return ;
+	temp = nb;
 	if (!(str = (char*)ft_memalloc(nb * sizeof(char))))
 		return ;
-	temp = nb;
-	ft_putendl("salut");
-	while (temp >= 0)
+	while (temp)
 		str[--temp] = c;
 	write(1, str, (size_t)nb);
 	ft_memdel((void**)&str);

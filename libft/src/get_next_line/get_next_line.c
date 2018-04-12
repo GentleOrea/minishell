@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 11:48:02 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/11 13:10:17 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/11 15:20:42 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,12 @@ static char		*initline(t_gnl *lst)
 int				get_next_line(const int fd, char **line)
 {
 	static t_gnl	gl;
-	t_gnl			*lst = NULL;
+	t_gnl			*lst;
 	int				ret;
 	int				i;
 
 	gl.fd = -1;
+	lst = NULL;
 	if (!gl.buf && !(gl.buf = ft_strnew(BUFF_SIZE)))
 		return (-1);
 	if (BUFF_SIZE < 1 || !line || fd < 0 || (i = 0)

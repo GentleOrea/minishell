@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 17:22:05 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/10 13:01:50 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/11 17:04:40 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int			ft_atoi(const char *str)
 	n = 1;
 	nb = 0;
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i] && (str[i] == ' ' || str[i] == '\n' || str[i] == '\t'
 			|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r'))
 		i++;
