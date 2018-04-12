@@ -6,11 +6,11 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/08 10:27:49 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/08 10:51:54 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/12 16:23:24 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_strswap(char *str1, char	*str2)
+void	ft_strswap(char *str1, char *str2)
 {
 	char	*temp;
 

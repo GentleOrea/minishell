@@ -6,13 +6,13 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/10 12:35:24 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/10 17:16:13 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/12 16:05:17 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_occiter(char *str, int op,int (*f)(int, int))
+int	ft_occiter(char *str, int op, int (*f)(int, int))
 {
 	int	cp;
 

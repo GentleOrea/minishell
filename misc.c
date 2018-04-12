@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 12:31:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/12 15:30:12 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/12 15:55:14 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*conv_esc(char *str)
 	return (get_esc(str, mal));
 }
 
-void	ft_echo(g_shell *sh, char **argv)
+void	ft_echo(t_shell *sh, char **argv)
 {
 	int	i;
 	int	op;

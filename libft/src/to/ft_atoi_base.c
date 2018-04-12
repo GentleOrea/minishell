@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/10 13:13:29 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/10 17:01:38 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/12 16:02:36 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_pow(int i, int pow)
 	return (ft_pow(i * i, --pow));
 }
 
-int			ft_atoi_base(const char *str, int base)
+int	ft_atoi_base(const char *str, int base)
 {
 	int	i;
 	int	nb;
@@ -37,15 +37,12 @@ int			ft_atoi_base(const char *str, int base)
 		i++;
 	(str[i] == '-' && base == 10) ? n = -n : 0;
 	(str[i] == '-' || str[i] == '+') ? i++ : 0;
-	while (str[i + dec] && (str[i + dec] >= '0' && (str[i + dec] <= base + '0' || (base > 10 && ft_toupper(str[i + dec]) - 'A' + 10 < base))))
+	while (str[i + dec] && (str[i + dec] >= '0' && (str[i + dec] <= base + '0'
+			|| (base > 10 && ft_toupper(str[i + dec]) - 'A' + 10 < base))))
 		dec++;
 	while (--dec + 1)
-	{
-		nb = nb + ft_pow(base, dec) *  (ft_isdigit(str[i]) ? str[i] - '0' : ft_toupper(str[i]) - 'A' + 10);
-		i++;
-	}
-	if (nb * n * -1 == 469762049)
-		return (-1);
+		nb = nb + ft_pow(base, dec) * (ft_isdigit(str[i]) ? str[i++] - '0' :
+				ft_toupper(str[i++]) - 'A' + 10);
 	if (base < 2 || base > 36 || nb * n == 469762049)
 		return (0);
 	return (nb * n);

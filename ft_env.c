@@ -6,13 +6,13 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 12:41:02 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/12 15:40:07 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/12 15:55:12 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		ft_unsetenv(g_shell *sh, char *argv[])
+void		ft_unsetenv(t_shell *sh, char *argv[])
 {
 	t_env *env;
 
@@ -24,7 +24,7 @@ void		ft_unsetenv(g_shell *sh, char *argv[])
 	sh->env_size--;
 }
 
-void		ft_setenv(g_shell *sh, char *argv[])
+void		ft_setenv(t_shell *sh, char *argv[])
 {
 	t_env *env;
 
@@ -33,7 +33,7 @@ void		ft_setenv(g_shell *sh, char *argv[])
 	sh->env_size++;
 }
 
-static int	add(g_shell *sh, char *argv[])
+static int	add(t_shell *sh, char *argv[])
 {
 	int		i;
 	t_env	*end;
@@ -54,7 +54,7 @@ static int	add(g_shell *sh, char *argv[])
 	return (i);
 }
 
-void		ft_env(g_shell *sh, char *argv[])
+void		ft_env(t_shell *sh, char *argv[])
 {
 	t_env	*temp;
 	t_env	*to_del;

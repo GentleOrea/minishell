@@ -6,13 +6,13 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/08 11:13:21 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/12 15:41:17 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/12 17:17:38 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	fill_env(g_shell *sh)
+void	fill_env(t_shell *sh)
 {
 	t_env	*env;
 	t_env	*to_del;
@@ -35,7 +35,7 @@ void	fill_env(g_shell *sh)
 	}
 }
 
-void	init_built(g_shell *sh)
+void	init_built(t_shell *sh)
 {
 	char	**mybuilt;
 	t_env	*pwd;
@@ -57,9 +57,10 @@ void	init_built(g_shell *sh)
 	sh->oldpwd = ft_strdup(&pwd->value[4]);
 	sh->pwd = ft_strdup(sh->oldpwd);
 	sh->env = NULL;
+	sh->free = 0;
 }
 
-void	init(g_shell *sh, char **env)
+void	init(t_shell *sh, char **env)
 {
 	t_env	*begin;
 	int		del;
@@ -83,11 +84,13 @@ void	init(g_shell *sh, char **env)
 	fill_env(sh);
 }
 
-void	erase_shell(g_shell *sh)
+void	erase_shell(t_shell *sh)
 {
 	t_env	*to_del;
 
 	ft_memdel((void**)&sh->env);
+	ft_free_dblechar_tab(sh->comma);
+	ft_free_dblechar_tab(sh->space);
 	ft_free_dblechar_tab(sh->my_built);
 	while (sh->env_t)
 	{
@@ -98,6 +101,7 @@ void	erase_shell(g_shell *sh)
 	}
 	ft_memdel((void**)&sh->oldpwd);
 	ft_memdel((void**)&sh->pwd);
+	ft_memdel((void**)&sh->line);
 	ft_printf("exit\n");
 	exit(1);
 }

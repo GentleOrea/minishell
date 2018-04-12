@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 15:23:29 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/11 12:59:45 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/12 16:06:44 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int				ft_ismin(int i, int i2);
 int				ft_isprint(int c);
 
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
-int				ft_occiter(char *str,int base, int (*f)(int, int));
+int				ft_occiter(char *str, int base, int (*f)(int, int));
 int				ft_search_char(char *str, char c, int end);
 int				ft_str_isdigit(char *str);
 int				ft_strcmp(const char *s1, const char *s2);

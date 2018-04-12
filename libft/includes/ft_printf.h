@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/24 10:23:57 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/11 12:22:12 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/12 16:06:21 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define SPECIFIER "hljz"
 # define CONVERT "uoxUOXpdDicCsS"
 
-#include "libft.h"
+# include "libft.h"
 
 typedef struct	s_arg
 {

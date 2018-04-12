@@ -6,13 +6,13 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/08 11:10:57 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/12 15:37:36 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/12 16:55:16 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	tabchr(g_shell *sh, char *arg, char is_old)
+void	tabchr(t_shell *sh, char *arg, char is_old)
 {
 	char	path[256];
 	t_env	*pwd;
@@ -37,18 +37,23 @@ void	tabchr(g_shell *sh, char *arg, char is_old)
 	mallcheck(oldpwd->value = ft_strjoin("OLDPWD=", sh->oldpwd));
 }
 
-void	ft_cd(g_shell *sh, char *argv[])
+void	ft_cd(t_shell *sh, char *argv[])
 {
 	t_env	*temp;
 	char	is_old;
 	char	i;
 
 	is_old = !ft_strcmp(argv[0], "-");
-	if (!(i = ft_strcmp(argv[0], "~")))
+	if (!argv[0] || !(i = ft_strcmp(argv[0], "~")))
 	{
 		temp = search_var(sh->env_t, "HOME");
 		if (temp && temp->value)
 			mallcheck(argv[0] = ft_strdup(&temp->value[5]));
+		else
+		{
+			ft_printf("cd : no such file or directory\n");
+			return ;
+		}
 	}
 	tabchr(sh, argv[0], is_old);
 	!i ? ft_memdel((void**)&argv[0]) : 0;

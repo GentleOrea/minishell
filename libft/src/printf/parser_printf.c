@@ -6,13 +6,13 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 14:33:13 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/07 13:43:21 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/12 16:22:43 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		initlist(t_arg *list)
+int			initlist(t_arg *list)
 {
 	int i;
 
@@ -30,7 +30,25 @@ int		initlist(t_arg *list)
 	return (1);
 }
 
-int		get_fields(const char *str, int i, t_arg *tempm, int index)
+static int	norm(const char *str, int i, t_arg *tempm, int index)
+{
+	if ((index = ft_charchr(str[i], SPECIFIER)) >= 0)
+	{
+		if (!index && !ft_charchr(str[i + 1], SPECIFIER) && (i += 2))
+			tempm->specifier = index;
+		else if (index == 1 &&
+				ft_charchr(str[i + 1], SPECIFIER) == 1 && (i += 2))
+			tempm->specifier = index + 1;
+		else if (i++)
+		{
+			index += (index < 1) ? 1 : 2;
+			tempm->specifier = index;
+		}
+	}
+	return (i);
+}
+
+int			get_fields(const char *str, int i, t_arg *tempm, int index)
 {
 	while (ft_charchr(str[i], NBR) >= 0)
 	{
@@ -47,22 +65,10 @@ int		get_fields(const char *str, int i, t_arg *tempm, int index)
 		else
 			tempm->champ = (tempm->champ * 10) + str[i++] - '0';
 	}
-	if ((index = ft_charchr(str[i], SPECIFIER)) >= 0)
-	{
-		if (!index && !ft_charchr(str[i + 1], SPECIFIER) && (i += 2))
-			tempm->specifier = index;
-		else if (index == 1 && ft_charchr(str[i + 1], SPECIFIER) == 1 && (i += 2))
-			tempm->specifier = index + 1;
-		else if (i++)
-		{
-			index += (index < 1) ? 1 : 2;
-			tempm->specifier = index;
-		}
-	}
-	return (i);
+	return (norm(str, i, tempm, index));
 }
 
-int		parse_arg(const char *str, t_arg *tempm)
+int			parse_arg(const char *str, t_arg *tempm)
 {
 	int		i;
 	int		index;

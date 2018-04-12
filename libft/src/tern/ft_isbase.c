@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/10 16:44:13 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/10 17:01:41 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/12 16:04:46 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 int		ft_isbase(int c, int base)
 {
-	return (c > '0' && (c < base + '0' || (base > 10 && ft_toupper(c) - 'A' + 10  < base)));
+	return (c > '0' && (c < base + '0' ||
+				(base > 10 && ft_toupper(c) - 'A' + 10 < base)));
 }
