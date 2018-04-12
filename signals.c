@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 13:55:15 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/12 14:35:47 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/12 15:46:38 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,8 @@ void	mallcheck(void *str)
 	exit(EXIT_FAILURE);
 }
 
-void sig_handler(int signo)
+void	sig_handler(int signo)
 {
 	if (signo == SIGINT)
 		ft_printf("\n{boldblue}$>{reset}");
-}
-
-void	sig_run(g_shell *sh)
-{
-	if (signal(SIGINT, sig_handler) != SIG_ERR )
-	{
-		(void)sh;
-		return ;
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 18:20:32 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/12 14:29:25 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/12 15:49:57 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	exe(g_shell *sh, char *comm, char **argv)
 	pid_t father;
 
 	father = fork();
-	(father != 0) ? wait(0) : execve(comm, argv, sh->env); 
+	(father != 0) ? wait(0) : execve(comm, argv, sh->env);
 }
 
 int		search_exec(g_shell *sh, char *comm, char *argv[])
@@ -40,8 +40,8 @@ int		search_exec(g_shell *sh, char *comm, char *argv[])
 
 	temp = NULL;
 	fill_env(sh);
-	!access(comm, F_OK | X_OK) ? exe(sh, comm, argv): 0;
-	if (!(path = search_var(sh->t_env, "PATH"))->value)
+	!access(comm, F_OK | X_OK) ? exe(sh, comm, argv) : 0;
+	if (!(path = search_var(sh->env_t, "PATH"))->value)
 		return (ft_printf("command not found : %s \n", comm));
 	mallcheck(paths = ft_strsplit(&path->value[5], ':'));
 	index = -1;
@@ -51,7 +51,8 @@ int		search_exec(g_shell *sh, char *comm, char *argv[])
 		!access(temp, F_OK | X_OK) ? exe(sh, temp, argv) :
 			ft_memdel((void**)&temp);
 	}
-	temp ? ft_memdel((void**)&temp) : ft_printf("command not found : %s \n", comm);
+	temp ? ft_memdel((void**)&temp) :
+		ft_printf("command not found : %s \n", comm);
 	ft_free_dblechar_tab(paths);
 	return (1);
 }
@@ -59,8 +60,9 @@ int		search_exec(g_shell *sh, char *comm, char *argv[])
 void	comm(g_shell *sh, char **comma)
 {
 	char	**space;
-	int i = -1;
+	int		i;
 
+	i = -1;
 	while (comma[++i])
 	{
 		mallcheck(space = ft_strsplit(comma[i], ' '));
@@ -73,18 +75,19 @@ void	comm(g_shell *sh, char **comma)
 	}
 }
 
-int main(int ac, char **av, char **env)
+int		main(int ac, char **av, char **env)
 {
 	g_shell		sh;
-	char	*line;
-	char	**comma;
+	char		*line;
+	char		**comma;
 
-	(void)ac;(void) av;
+	(void)ac;
+	(void)av;
 	init(&sh, env);
 	while (1)
 	{
-		ft_printf("{boldblue}%s{reset} ☯ " , sh.pwd);
-		sig_run(&sh);
+		ft_printf("{boldblue}%s{reset} ☯ ", sh.pwd);
+		signal(SIGINT, sig_handler);
 		if (get_next_line(0, &line) <= 0)
 			erase_shell(&sh);
 		mallcheck(comma = ft_strsplit(line, ';'));
@@ -92,5 +95,4 @@ int main(int ac, char **av, char **env)
 		ft_memdel((void**)&line);
 		ft_free_dblechar_tab(comma);
 	}
-	erase_shell(&sh);
 }

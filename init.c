@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/08 11:13:21 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/12 14:36:49 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/12 15:41:17 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 void	fill_env(g_shell *sh)
 {
-	t_env *env;
-	t_env *to_del;
+	t_env	*env;
+	t_env	*to_del;
 	int		i;
 
 	i = 0;
-	env = sh->t_env;
+	env = sh->env_t;
 	ft_memdel((void**)&sh->env);
-	sh->env_size = sh->new_env_size;
 	sh->env = (char**)ft_memalloc((sh->env_size + 1) * sizeof(char*));
 	while (env)
 	{
@@ -53,13 +52,12 @@ void	init_built(g_shell *sh)
 	sh->f_built[2] = &ft_env;
 	sh->f_built[3] = &ft_setenv;
 	sh->f_built[4] = &ft_unsetenv;
-	pwd = search_var(sh->t_env, "PWD");
-	oldpwd = search_var(sh->t_env, "OLDPWD"); 
+	pwd = search_var(sh->env_t, "PWD");
+	oldpwd = search_var(sh->env_t, "OLDPWD");
 	sh->oldpwd = ft_strdup(&pwd->value[4]);
 	sh->pwd = ft_strdup(sh->oldpwd);
 	sh->env = NULL;
 }
-
 
 void	init(g_shell *sh, char **env)
 {
@@ -68,7 +66,7 @@ void	init(g_shell *sh, char **env)
 	int		i;
 
 	mallcheck(begin = (t_env *)ft_memalloc(sizeof(t_env)));
-	sh->t_env = begin;
+	sh->env_t = begin;
 	del = ft_charchr('=', env[0]);
 	begin->value = ft_strdup(env[0]);
 	i = 0;
@@ -80,6 +78,7 @@ void	init(g_shell *sh, char **env)
 		del = ft_charchr('=', env[i]);
 		begin->value = ft_strdup(env[i]);
 	}
+	sh->env_size = i;
 	init_built(sh);
 	fill_env(sh);
 }
@@ -90,10 +89,10 @@ void	erase_shell(g_shell *sh)
 
 	ft_memdel((void**)&sh->env);
 	ft_free_dblechar_tab(sh->my_built);
-	while (sh->t_env)
+	while (sh->env_t)
 	{
-		to_del = sh->t_env;
-		sh->t_env = sh->t_env->next;
+		to_del = sh->env_t;
+		sh->env_t = sh->env_t->next;
 		ft_memdel((void**)&to_del->value);
 		ft_memdel((void**)&to_del);
 	}

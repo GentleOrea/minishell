@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/08 18:52:17 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/11 19:18:46 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/12 14:57:45 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	pop(t_env *env)
 {
-	env->prev->next = env->next;
-	env->next->prev = env->prev;
+	env->prev ? env->prev->next = env->next : 0;
+	env->next ? env->next->prev = env->prev : 0;
 }
 
 t_env	*search_var(t_env *list, char *to_find)

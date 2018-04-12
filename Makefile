@@ -6,13 +6,13 @@
 #    By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/11 13:13:35 by ygarrot           #+#    #+#              #
-#    Updated: 2018/04/12 14:35:54 by ygarrot          ###   ########.fr        #
+#    Updated: 2018/04/12 14:45:24 by ygarrot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-FLAGS =  -Wall -Werror -Wextra #-g3 -fsanitize=address
+FLAGS =  -Wall -Werror -Wextra #-Weverything #-g3 -fsanitize=address 
 
 SRC_FOLDER = ./
 
@@ -48,7 +48,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@printf "                                                        \r"
-	make -C libft -j
+	@make -C libft -j
 	@gcc $(FLAGS) -o $(NAME) $^ -L libft -l ft -ltermcap
 	@printf "                                                        \r"
 	@printf "minishell built\n"
