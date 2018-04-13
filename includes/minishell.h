@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 18:22:10 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/12 17:14:27 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/13 11:52:47 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,11 @@ typedef struct	s_shell
 	char	*oldpwd;
 	pid_t	father;
 	char	*pwd;
-	char	*line;
-	char	**comma;
-	char	**space;
 }				t_shell;
 
 void			init(t_shell *sh, char **env);
-void			mallcheck(void *to_check);
-t_env			*search_var(t_env *list, char *to_find);
+void			mallcheck(t_shell *sh, void *to_check);
+t_env			*search_var(t_shell *sh, t_env *list, char *to_find);
 int				search_exec(t_shell *sh, char *comm, char *argv[]);
 void			fill_env(t_shell *sh);
 void			xe(t_shell *sh, char *comm, char **argv);

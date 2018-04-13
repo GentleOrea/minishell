@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 12:31:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/12 15:55:14 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/13 11:50:00 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*get_esc(char *str, int mal)
 
 	i = -1;
 	lim = -1;
-	mallcheck(ret = (char*)ft_memalloc(++mal * sizeof(char)));
+	if (!(ret = (char*)ft_memalloc(++mal * sizeof(char))))
+		return (NULL);
 	while (str[++i] && index != 7)
 	{
 		if (str[i] == '\\' &&
@@ -57,6 +58,7 @@ void	ft_echo(t_shell *sh, char **argv)
 {
 	int	i;
 	int	op;
+	char	*temp;
 
 	if (!argv)
 		return ;
@@ -67,9 +69,10 @@ void	ft_echo(t_shell *sh, char **argv)
 	i += (op == 2);
 	while (argv[i])
 	{
-		op & 2 ? argv[i] = conv_esc(argv[i]) : 0;
-		ft_printf(argv[i + 1] ? "%s " : "%s", argv[i]);
-		op & 2 ? ft_memdel((void**)&argv[i]) : 0;
+		temp = argv[i];
+		op & 2 ? mallcheck(sh, temp = conv_esc(temp)) : 0;
+		ft_printf(argv[i + 1] ? "%s " : "%s", temp);
+		op & 2 ? ft_memdel((void**)&temp) : 0;
 		i++;
 	}
 	!(op & 1) ? ft_putchar('\n') : 0;

@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/08 11:10:57 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/12 16:55:16 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/13 11:49:27 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	tabchr(t_shell *sh, char *arg, char is_old)
 	t_env	*pwd;
 	t_env	*oldpwd;
 
-	pwd = search_var(sh->env_t, "PWD");
-	oldpwd = search_var(sh->env_t, "OLDPWD");
+	pwd = search_var(sh, sh->env_t, "PWD");
+	oldpwd = search_var(sh, sh->env_t, "OLDPWD");
 	getcwd(path, 256);
 	!is_old ? ft_memdel((void**)&sh->oldpwd) : 0;
-	!is_old || !sh->oldpwd ? mallcheck(sh->oldpwd = ft_strdup(path)) : 0;
+	!is_old || !sh->oldpwd ? mallcheck(sh, sh->oldpwd = ft_strdup(path)) : 0;
 	if (chdir(is_old ? sh->oldpwd : arg) && arg)
 	{
 		ft_printf("cd : no such file or directory : %s\n", arg);
@@ -30,11 +30,11 @@ void	tabchr(t_shell *sh, char *arg, char is_old)
 	}
 	getcwd(path, 256);
 	ft_memdel((void**)&sh->pwd);
-	mallcheck(sh->pwd = ft_strdup(path));
+	mallcheck(sh, sh->pwd = ft_strdup(path));
 	ft_memdel((void**)&pwd->value);
 	ft_memdel((void**)&oldpwd->value);
-	mallcheck(pwd->value = ft_strjoin("PWD=", path));
-	mallcheck(oldpwd->value = ft_strjoin("OLDPWD=", sh->oldpwd));
+	mallcheck(sh, pwd->value = ft_strjoin("PWD=", path));
+	mallcheck(sh, oldpwd->value = ft_strjoin("OLDPWD=", sh->oldpwd));
 }
 
 void	ft_cd(t_shell *sh, char *argv[])
@@ -46,9 +46,12 @@ void	ft_cd(t_shell *sh, char *argv[])
 	is_old = !ft_strcmp(argv[0], "-");
 	if (!argv[0] || !(i = ft_strcmp(argv[0], "~")))
 	{
-		temp = search_var(sh->env_t, "HOME");
+		temp = search_var(sh, sh->env_t, "HOME");
 		if (temp && temp->value)
-			mallcheck(argv[0] = ft_strdup(&temp->value[5]));
+		{
+			ft_memdel((void**)&argv[0]);
+			mallcheck(sh, argv[0] = ft_strdup(&temp->value[5]));
+		}
 		else
 		{
 			ft_printf("cd : no such file or directory\n");

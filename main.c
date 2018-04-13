@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/06 18:20:32 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/12 17:33:15 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/13 12:16:54 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	wait_exec(t_shell *sh, char **space)
 		else
 			search_exec(sh, space[0], space);
 	}
-	!sh->free ? ft_free_dblechar_tab(space) : 0;
 }
 
 void	exe(t_shell *sh, char *comm, char **argv)
@@ -45,9 +44,11 @@ int		search_exec(t_shell *sh, char *comm, char *argv[])
 	t_env	*path;
 
 	temp = NULL;
-	if (!(path = search_var(sh->env_t, "PATH"))->value)
+	if (!comm)
+		return (0);
+	if (!(path = search_var(sh, sh->env_t, "PATH"))->value)
 		return (ft_printf("command not found : %s \n", comm));
-	mallcheck(paths = ft_strsplit(&path->value[5], ':'));
+	mallcheck(sh, paths = ft_strsplit(&path->value[5], ':'));
 	index = -1;
 	while (paths[++index] && !temp)
 	{
@@ -64,37 +65,42 @@ int		search_exec(t_shell *sh, char *comm, char *argv[])
 void	comm(t_shell *sh, char **comma)
 {
 	int		i;
-
+	char	**space;
+	
 	i = -1;
-	while (comma[++i])
+	while (comma && comma[++i])
 	{
-		mallcheck(sh->space = ft_strsplit(comma[i], ' '));
+		mallcheck(sh, space = ft_strmsplit(comma[i], " \t"));
 		if (!ft_strcmp(comma[i], "exit"))
 		{
-			ft_free_dblechar_tab(sh->space);
+			ft_free_dblechar_tab(comma);
+			ft_free_dblechar_tab(space);
 			erase_shell(sh);
 		}
-		wait_exec(sh, sh->space);
+		wait_exec(sh, space);
+		ft_free_dblechar_tab(space);
 	}
 }
 
 int		main(int ac, char **av, char **env)
 {
-	t_shell		sh;
+	t_shell		*sh;
 	char		*line;
+	char		**comma;
 
 	(void)ac;
 	(void)av;
-	init(&sh, env);
+	mallcheck(NULL, sh = (t_shell*)ft_memalloc(sizeof(t_shell)));
+	init(sh, env);
 	while (1)
 	{
-		ft_printf("{boldblue}%s{reset} ☯ ", sh.pwd);
+		ft_printf("{boldblue}%s{reset} ☯ ", sh->pwd);
 		signal(SIGINT, sig_handler);
 		if (get_next_line(0, &line) <= 0)
-			erase_shell(&sh);
-		mallcheck(sh.comma = ft_strsplit(line, ';'));
+			erase_shell(sh);
+		mallcheck(sh, comma = ft_strsplit(line, ';'));
 		ft_memdel((void**)&line);
-		comm(&sh, sh.comma);
-		ft_free_dblechar_tab(sh.comma);
+		comm(sh, comma);
+		ft_free_dblechar_tab(comma);
 	}
 }

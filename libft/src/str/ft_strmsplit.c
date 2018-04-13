@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include "libft.h"
 
-static int		countwords(char const *s, char c)
+static int		countwords(char const *s, char *c)
 {
 	int i;
 	int i2;
@@ -22,27 +22,27 @@ static int		countwords(char const *s, char c)
 	i2 = 0;
 	while (s[i])
 	{
-		while (s[i] == c && s[i])
+		while (s[i] && ft_isin(s[i], c))
 			i++;
-		if (s[i] != c && s[i])
+		if (s[i] && !ft_isin(s[i], c))
 			i2++;
-		while (s[i] != c && s[i])
+		while (s[i] && !ft_isin(s[i], c))
 			i++;
 	}
 	return (i2);
 }
 
-static int		countletters(char const *s, char c, int i2)
+static int		countletters(char const *s, char *c, int i2)
 {
 	int cl;
 
 	cl = 0;
-	while (s[i2 + cl] != c && s[i2 + cl])
+	while (s[i2 + cl] && !ft_isin(s[i2 + cl], c))
 		cl++;
 	return (cl);
 }
 
-static char		**cpy(char const *s, char c, char **fresh, int words)
+static char		**cpy(char const *s, char *c, char **fresh, int words)
 {
 	int		i;
 	int		i3;
@@ -53,14 +53,14 @@ static char		**cpy(char const *s, char c, char **fresh, int words)
 	while (++i < words)
 	{
 		i3 = 0;
-		while (s[i2] == c && s[i2])
+		while (s[i2] && ft_isin(s[i2], c))
 			i2++;
 		if (!(fresh[i] = ft_strnew(countletters(s, c, i2))))
 		{
 			ft_free_dblechar_tab(fresh);
 			return (NULL);
 		}
-		while (s[i2] != c && s[i2])
+		while (s[i2] && !ft_isin(s[i2], c))
 		{
 			fresh[i][i3] = s[i2];
 			i2++;
@@ -70,7 +70,7 @@ static char		**cpy(char const *s, char c, char **fresh, int words)
 	return (fresh);
 }
 
-char			**ft_strsplit(char const *s, char c)
+char			**ft_strmsplit(char const *s, char *c)
 {
 	char	**fresh;
 	int		words;

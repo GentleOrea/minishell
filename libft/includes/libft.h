@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 15:23:29 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/12 16:06:44 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/13 12:08:32 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 char			**ft_init_double_tab(int size, int size2);
 char			**ft_strnsplit(const char *str, char c, int row);
 char			**ft_strsplit(char const *s, char c);
+char			**ft_strmsplit(char const *s, char *c);
 char			*ft_imaxtoabase(intmax_t value, int base);
 char			*ft_implode(char glue, const char *str, const char *str2);
 char			*ft_itoa(int n);
