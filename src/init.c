@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/08 11:13:21 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/13 12:22:27 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/13 12:26:19 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,6 @@ void	erase_shell(t_shell *sh)
 	ft_memdel((void**)&sh->oldpwd);
 	ft_memdel((void**)&sh->pwd);
 	ft_memdel((void**)&sh);
+	ft_putchar('\n');
 	exit(1);
 }

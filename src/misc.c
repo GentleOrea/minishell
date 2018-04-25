@@ -6,7 +6,7 @@
 /*   By: ygarrot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 12:31:03 by ygarrot           #+#    #+#             */
-/*   Updated: 2018/04/13 11:50:00 by ygarrot          ###   ########.fr       */
+/*   Updated: 2018/04/13 12:24:24 by ygarrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ char	*conv_esc(char *str)
 
 void	ft_echo(t_shell *sh, char **argv)
 {
-	int	i;
-	int	op;
+	int		i;
+	int		op;
 	char	*temp;
 
 	if (!argv)
